@@ -1,8 +1,15 @@
 {
   "env": {
+    "es6": true,
     "browser": true
   },
-  "extends": ["plugin:react/jsx-runtime", "plugin:react/recommended", "prettier"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
     "ecmaFeatures": {
@@ -10,11 +17,8 @@
     },
     "ecmaVersion": "latest"
   },
-  "plugins": ["html", "prettier", "react"],
+  "plugins": ["@typescript-eslint", "react"],
   "rules": {
-    "arrow-body-style": "off",
-    "prefer-arrow-callback": "off",
-    "prettier/prettier": "error",
     "react/react-in-jsx-scope": 0,
     "react/jsx-uses-react": 0,
     "no-undef": 2,
