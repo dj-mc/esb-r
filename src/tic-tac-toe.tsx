@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Square extends React.Component {
+interface SquareProps {
+  XO: string;
+  onClick: () => void;
+}
+
+class Square extends React.Component<SquareProps> {
   render() {
     return (
       <button
@@ -10,32 +15,33 @@ class Square extends React.Component {
           this.props.onClick();
         }}
       >
-        {this.props.value}
+        {this.props.XO}
       </button>
     );
   }
 }
 
-class Board extends React.Component {
-  constructor(props) {
+interface BoardState {
+  squares: Array<string>;
+}
+
+class Board extends React.Component<unknown, BoardState> {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       squares: Array(9).fill(null)
     };
   }
 
-  handleClick(i) {
+  handleClick(i: number) {
     const squares = this.state.squares.slice();
     squares[i] = 'X';
     this.setState({ squares: squares });
   }
 
-  renderSquare(i) {
+  renderSquare(i: number) {
     return (
-      <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
-      />
+      <Square XO={this.state.squares[i]} onClick={() => this.handleClick(i)} />
     );
   }
 

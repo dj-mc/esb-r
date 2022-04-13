@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom';
 
 const e = React.createElement;
 
-class LikeButton extends React.Component {
-  constructor(props) {
+interface IState {
+  liked: boolean;
+}
+
+class LikeButton extends React.Component<unknown, IState> {
+  constructor(props: unknown) {
     super(props);
     this.state = { liked: false };
   }
