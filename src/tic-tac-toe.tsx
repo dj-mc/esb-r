@@ -1,70 +1,78 @@
 import React from 'react';
+import calculate_winner from './util';
 
 interface SquareProps {
   XO: string;
-  onClick: () => void;
+  clicked: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-class Square extends React.Component<SquareProps> {
-  render() {
-    return (
-      <button
-        className="square"
-        onClick={() => {
-          this.props.onClick();
-        }}
-      >
-        {this.props.XO}
-      </button>
-    );
-  }
+function Square(props: SquareProps) {
+  return (
+    <button className="square" onClick={props.clicked}>
+      {props.XO}
+    </button>
+  );
 }
 
 interface BoardState {
   squares: Array<string>;
+  x_plays_this_turn: boolean;
 }
 
 class Board extends React.Component<unknown, BoardState> {
   constructor(props: unknown) {
     super(props);
     this.state = {
-      squares: Array(9).fill(null)
+      squares: Array(9).fill(null),
+      x_plays_this_turn: true
     };
   }
 
-  handleClick(i: number) {
+  handle_click(i: number) {
     const squares = this.state.squares.slice();
-    squares[i] = 'X';
-    this.setState({ squares: squares });
+    if (calculate_winner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.x_plays_this_turn ? 'x' : 'o';
+    this.setState({
+      squares: squares,
+      x_plays_this_turn: !this.state.x_plays_this_turn
+    });
   }
 
-  renderSquare(i: number) {
+  render_square(i: number) {
     return (
-      <Square XO={this.state.squares[i]} onClick={() => this.handleClick(i)} />
+      <Square XO={this.state.squares[i]} clicked={() => this.handle_click(i)} />
     );
   }
 
   render() {
-    const status = 'Next player: X';
+    let status: string;
+    const winner = calculate_winner(this.state.squares);
 
+    if (winner) {
+      status = `Winner: ${winner}`;
+    } else {
+      status = `Next player: ${this.state.x_plays_this_turn ? 'x' : 'o'}`;
+    }
     return (
       <div>
         <div className="status">{status}</div>
         <br />
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {this.render_square(0)}
+          {this.render_square(1)}
+          {this.render_square(2)}
         </div>
         <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
+          {this.render_square(3)}
+          {this.render_square(4)}
+          {this.render_square(5)}
         </div>
         <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+          {this.render_square(6)}
+          {this.render_square(7)}
+          {this.render_square(8)}
         </div>
       </div>
     );
