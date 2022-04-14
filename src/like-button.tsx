@@ -1,13 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-const e = React.createElement;
 
 interface IState {
   liked: boolean;
 }
 
-class LikeButton extends React.Component<unknown, IState> {
+export default class LikeButton extends React.Component<unknown, IState> {
   constructor(props: unknown) {
     super(props);
     this.state = { liked: false };
@@ -18,13 +15,10 @@ class LikeButton extends React.Component<unknown, IState> {
       return 'You liked this.';
     }
 
-    return e(
+    return React.createElement(
       'button',
       { onClick: () => this.setState({ liked: true }) },
       'Like'
     );
   }
 }
-
-const domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(e(LikeButton), domContainer);

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 interface SquareProps {
   XO: string;
@@ -72,7 +71,7 @@ class Board extends React.Component<unknown, BoardState> {
   }
 }
 
-class Game extends React.Component {
+export default class Game extends React.Component {
   render() {
     return (
       <div className="game">
@@ -87,5 +86,3 @@ class Game extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<Game />, document.getElementById('game_container'));
