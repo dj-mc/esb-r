@@ -19,6 +19,6 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.jsx,.tsx .",
     "check": "prettier --check './**/*.{js,ts,jsx,tsx,json,html,css,md}'",
-    "build": "esbuild src/app.tsx --bundle --minify --sourcemap --target=chrome58,firefox57,safari11,edge16 --outdir=dist"
+    "build": "node build.js"
   }
 }
