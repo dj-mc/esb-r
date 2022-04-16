@@ -14,3 +14,13 @@ button.square {
   display: flex;
   align-items: center;
 }
+
+#like-btn {
+  margin: 2px;
+  padding: 5px;
+  border: none;
+}
+
+footer {
+  margin: 2px;
+}
