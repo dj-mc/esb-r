@@ -21,6 +21,16 @@ button.square {
   border: none;
 }
 
+#footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: black;
+  width: 600px;
+  height: 30px;
+}
+
 footer {
   margin: 2px;
 }
