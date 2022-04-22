@@ -1,12 +1,12 @@
 import React from 'react';
-import calculate_winner from './util';
+import winner from './util';
 
-interface SquareProps {
+interface ISquareProps {
   XO: string;
   clicked: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Square(props: SquareProps) {
+function Square(props: ISquareProps) {
   return (
     <button className="square" onClick={props.clicked}>
       {props.XO}
@@ -14,12 +14,12 @@ function Square(props: SquareProps) {
   );
 }
 
-interface BoardState {
+interface IBoardState {
   squares: Array<string>;
   x_plays_this_turn: boolean;
 }
 
-class Board extends React.Component<unknown, BoardState> {
+class Board extends React.Component<unknown, IBoardState> {
   constructor(props: unknown) {
     super(props);
     this.state = {
@@ -30,7 +30,7 @@ class Board extends React.Component<unknown, BoardState> {
 
   handle_click(i: number) {
     const squares = this.state.squares.slice();
-    if (calculate_winner(squares) || squares[i]) {
+    if (winner(squares) || squares[i]) {
       return;
     }
     squares[i] = this.state.x_plays_this_turn ? 'x' : 'o';
@@ -48,10 +48,10 @@ class Board extends React.Component<unknown, BoardState> {
 
   render() {
     let status: string;
-    const winner = calculate_winner(this.state.squares);
+    const W$ = winner(this.state.squares);
 
-    if (winner) {
-      status = `Winner: ${winner}`;
+    if (W$) {
+      status = `Winner: ${W$}`;
     } else {
       status = `Next player: ${this.state.x_plays_this_turn ? 'x' : 'o'}`;
     }
