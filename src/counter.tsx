@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface ICounterProps {
   n: number;
@@ -19,4 +19,13 @@ export const Counter: React.FC<ICounterProps> = (props) => {
       <button onClick={() => click_handler(-1)}>-1</button>
     </div>
   );
+};
+
+export const StatefulCounter = () => {
+  const [n, set_n] = useState(0);
+  function click_handler() {
+    console.log('Clicked');
+  }
+  setTimeout(() => set_n(n + 1), 1000);
+  return <div onClick={click_handler}>{n}</div>;
 };

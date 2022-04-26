@@ -19,7 +19,6 @@ function calc_transpose(arr2d: Array<Array<string>>) {
 }
 
 function calc_diagonals(arr2d: Array<Array<string>>) {
-  console.log(arr2d);
   const diag_left_right = [];
   const diag_right_left = [];
   for (let i = arr2d.length, j = 0; i > 0; i--, j++) {
