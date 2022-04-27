@@ -8,15 +8,29 @@ function fold_array(arr: Array<string>) {
   return folded;
 }
 
-function calc_transpose(arr2d: Array<Array<string>>) {
-  const new_arr2d = arr2d.slice();
-  for (let i = 0; i < arr2d.length; i++) {
-    for (let j = 0; j < i; j++) {
-      [new_arr2d[i][j], new_arr2d[j][i]] = [new_arr2d[j][i], new_arr2d[i][j]];
+function fold_array_(arr: Array<string>) {
+  const folded = [];
+  const arrCopy = arr.slice();
+  const dimension_length = Math.sqrt(arr.length);
+  while (arrCopy.length > 0) {
+    if (arrCopy.length >= dimension_length) {
+      const sub_array = arrCopy.splice(0, dimension_length);
+      folded.push(sub_array);
     }
   }
-  return new_arr2d;
+  return folded;
 }
+
+// OOPS???
+// function calc_transpose(arr2d: Array<Array<string>>) {
+//   const new_arr2d = arr2d.slice();
+//   for (let i = 0; i < arr2d.length; i++) {
+//     for (let j = 0; j < i; j++) {
+//       [new_arr2d[i][j], new_arr2d[j][i]] = [new_arr2d[j][i], new_arr2d[i][j]];
+//     }
+//   }
+//   return new_arr2d;
+// }
 
 function calc_diagonals(arr2d: Array<Array<string>>) {
   const diag_left_right = [];
@@ -29,7 +43,6 @@ function calc_diagonals(arr2d: Array<Array<string>>) {
 }
 
 function row_winner(row: Array<string>) {
-  console.log(row);
   const set_row = new Set(row);
   if (row.includes(null) || set_row.size !== 1) {
     return null; // No winner
@@ -39,7 +52,7 @@ function row_winner(row: Array<string>) {
 
 export default function winner(squares: Array<string>) {
   const folded = fold_array(squares); // Rows
-  const transposed = calc_transpose(folded); // Columns
+  // const transposed = calc_transpose(folded); // Columns
   const diagonals = calc_diagonals(folded); // Diagonals
 
   for (const row of folded) {
@@ -48,12 +61,14 @@ export default function winner(squares: Array<string>) {
       return result;
     }
   }
-  for (const col of transposed) {
-    const result = row_winner(col);
-    if (result) {
-      return result;
-    }
-  }
+
+  // for (const col of transposed) {
+  //   const result = row_winner(col);
+  //   if (result) {
+  //     return result;
+  //   }
+  // }
+
   for (const diag of diagonals) {
     const result = row_winner(diag);
     if (result) {
