@@ -7,25 +7,35 @@ interface ICounterProps {
 export const Counter: React.FC<ICounterProps> = (props) => {
   let { n } = props;
   function click_handler(value: number) {
-    n += value;
-    console.log(value, n);
+    n = value !== 0 ? n + value : 0;
     const counter_display = document.getElementById('counter-display');
     counter_display.innerText = n.toString();
   }
   return (
-    <div>
+    <>
       <p id="counter-display">{n}</p>
-      <button onClick={() => click_handler(1)}>+1</button>
       <button onClick={() => click_handler(-1)}>-1</button>
-    </div>
+      <button onClick={() => click_handler(0)}>0</button>
+      <button onClick={() => click_handler(1)}>+1</button>
+    </>
   );
+};
+
+const DisplayCounter = (props: { n: number }) => {
+  return <>{props.n}</>;
 };
 
 export const StatefulCounter = () => {
   const [n, set_n] = useState(0);
-  function click_handler() {
-    console.log('Clicked');
-  }
-  setTimeout(() => set_n(n + 1), 1000);
-  return <div onClick={click_handler}>{n}</div>;
+  const decrement_n = () => set_n(n - 1);
+  const reset_n = () => set_n(0);
+  const increment_n = () => set_n(n + 1);
+  return (
+    <>
+      <DisplayCounter n={n} />
+      <button onClick={decrement_n}>-1</button>
+      <button onClick={reset_n}>0</button>
+      <button onClick={increment_n}>+1</button>
+    </>
+  );
 };

@@ -27,7 +27,7 @@ button.square {
   align-items: center;
   color: white;
   background: black;
-  width: 600px;
+  width: fit-content;
   height: 30px;
 }
 

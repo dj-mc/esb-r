@@ -62,10 +62,10 @@ const App = (props: { title: string; init_count: number }) => {
       </p>
       <Game />
       <div id="footer-container">
-        <Counter n={init_count} />
         <LikeButton />
         <MyFooter message="Thanks for being apart of the world wide web!" />
-        You&apos;ve visited for <StatefulCounter /> seconds.
+        <Counter n={init_count} />
+        <StatefulCounter />
       </div>
     </>
   );
