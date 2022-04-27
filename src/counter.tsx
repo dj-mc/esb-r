@@ -25,6 +25,17 @@ const DisplayCounter = (props: { n: number }) => {
   return <>{props.n}</>;
 };
 
+const ButtonOnClick = (props: {
+  fn: React.ButtonHTMLAttributes<HTMLButtonElement>['onClick'];
+  text: string;
+}) => {
+  return (
+    <>
+      <button onClick={props.fn}>{props.text}</button>
+    </>
+  );
+};
+
 export const StatefulCounter = () => {
   const [n, set_n] = useState(0);
   const decrement_n = () => set_n(n - 1);
@@ -33,9 +44,9 @@ export const StatefulCounter = () => {
   return (
     <>
       <DisplayCounter n={n} />
-      <button onClick={decrement_n}>-1</button>
-      <button onClick={reset_n}>0</button>
-      <button onClick={increment_n}>+1</button>
+      <ButtonOnClick fn={decrement_n} text={'-1'} />
+      <ButtonOnClick fn={reset_n} text={'0'} />
+      <ButtonOnClick fn={increment_n} text={'+1'} />
     </>
   );
 };
