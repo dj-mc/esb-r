@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "ES5",
+    "module": "ES6",
+    "lib": ["DOM", "ES2015"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true
+  },
+  "include": ["src/app.tsx"],
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "$schema": "https://json.schemastore.org/tsconfig"
+}
