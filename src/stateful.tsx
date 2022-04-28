@@ -1,23 +1,27 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const StatefulComponent = () => {
-  const [clicks, set_clicks] = useState({
-    left: 0,
-    right: 0
-  });
+export const StatefulComponent = () => {
+  const [left_clicks, set_left_sum] = useState(0);
+  const [right_clicks, set_right_sum] = useState(0);
+  const [click_history, set_click_history] = useState([]);
 
-  const handle_left_click = () =>
-    set_clicks({ ...clicks, left: clicks.left + 1 });
+  const handle_left_click = () => {
+    set_click_history(click_history.concat('L'));
+    set_left_sum(left_clicks + 1);
+  };
 
-  const handle_right_click = () =>
-    set_clicks({ ...clicks, right: clicks.right + 1 });
+  const handle_right_click = () => {
+    set_click_history(click_history.concat('R'));
+    set_right_sum(right_clicks + 1);
+  };
 
   return (
     <>
-      {clicks.left}
+      {left_clicks}
       <button onClick={handle_left_click}>left</button>
       <button onClick={handle_right_click}>right</button>
-      {clicks.right}
+      {right_clicks}
+      <p>{click_history.join(' ')}</p>
     </>
   );
 };

@@ -4,6 +4,7 @@ import * as ReactDOMServer from 'react-dom/server';
 import Game from './tic-tac-toe';
 import LikeButton from './like-button';
 import { Counter, StatefulCounter } from './counter';
+import { StatefulComponent } from './stateful';
 
 const Greet = ({
   name,
@@ -60,6 +61,7 @@ const App = (props: { title: string; init_count: number }) => {
         soluta, ex molestias, commodi dolorem placeat tenetur. Distinctio
         excepturi necessitatibus iusto facilis?
       </p>
+      <StatefulComponent />
       <Game />
       <div id="footer-container">
         <LikeButton />
