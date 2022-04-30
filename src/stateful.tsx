@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
+import { ButtonOnClick } from './button-on-click';
+
+const History = (props: { click_history: Array<string> }) => {
+  if (props.click_history.length === 0) {
+    return <>No history</>;
+  }
+  return <>History: {props.click_history.join(' ')}</>;
+};
 
 export const StatefulComponent = () => {
   const [left_clicks, set_left_sum] = useState(0);
   const [right_clicks, set_right_sum] = useState(0);
-  const [click_history, set_click_history] = useState([]);
+  const [click_history, set_click_history] = useState<Array<string>>([]);
 
   const handle_left_click = () => {
     set_click_history(click_history.concat('L'));
@@ -18,10 +26,10 @@ export const StatefulComponent = () => {
   return (
     <>
       {left_clicks}
-      <button onClick={handle_left_click}>left</button>
-      <button onClick={handle_right_click}>right</button>
+      <ButtonOnClick fn={handle_left_click} text="left" />
+      <ButtonOnClick fn={handle_right_click} text="right" />
       {right_clicks}
-      <p>{click_history.join(' ')}</p>
+      <History click_history={click_history} />
     </>
   );
 };
