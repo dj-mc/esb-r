@@ -20,7 +20,8 @@
   "plugins": ["@typescript-eslint", "react"],
   "rules": {
     "react/react-in-jsx-scope": 0,
-    "react/jsx-uses-react": 0,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     "no-undef": 2,
     "no-unused-vars": [2, { "varsIgnorePattern": "_" }],
     "no-use-before-define": 2,

@@ -5,6 +5,7 @@ import Game from './tic-tac-toe';
 import LikeButton from './like-button';
 import { Counter, StatefulCounter } from './counter';
 import { StatefulComponent } from './stateful';
+import { Feedback } from './feedback';
 
 const Greet = ({
   name,
@@ -62,6 +63,7 @@ const App = (props: { title: string; init_count: number }) => {
         excepturi necessitatibus iusto facilis?
       </p>
       <StatefulComponent />
+      <Feedback />
       <Game />
       <div id="footer-container">
         <LikeButton />
