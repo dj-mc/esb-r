@@ -6,6 +6,7 @@ import LikeButton from './like-button';
 import { Counter, StatefulCounter } from './counter';
 import { StatefulComponent } from './stateful';
 import { Feedback } from './feedback';
+import { Anecdotes } from './anecdotes';
 
 const Greet = ({
   name,
@@ -62,8 +63,12 @@ const App = (props: { title: string; init_count: number }) => {
         soluta, ex molestias, commodi dolorem placeat tenetur. Distinctio
         excepturi necessitatibus iusto facilis?
       </p>
+      <Anecdotes />
+      <br />
       <StatefulComponent />
+      <br />
       <Feedback />
+      <br />
       <Game />
       <div id="footer-container">
         <LikeButton />

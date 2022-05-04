@@ -37,7 +37,10 @@ export const Stats = (props: {
           <TableRow title={'neutral'} statistic={`${neutral}`} />
           <TableRow title={'bad'} statistic={`${bad}`} />
           <TableRow title={'average'} statistic={average.toFixed(2)} />
-          <TableRow title={'bad'} statistic={(positive * 100).toFixed(2)} />
+          <TableRow
+            title={'positive'}
+            statistic={(positive * 100).toFixed(2)}
+          />
         </tbody>
       </table>
     </>
