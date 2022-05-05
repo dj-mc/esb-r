@@ -7,6 +7,8 @@ import { Counter, StatefulCounter } from './counter';
 import { StatefulComponent } from './stateful';
 import { Feedback } from './feedback';
 import { Anecdotes } from './anecdotes';
+import { notes_object_list } from './notes-object-list';
+import { Notes } from './notes';
 
 const Greet = ({
   name,
@@ -70,6 +72,7 @@ const App = (props: { title: string; init_count: number }) => {
       <Feedback />
       <br />
       <Game />
+      <Notes notes={notes_object_list} />
       <div id="footer-container">
         <LikeButton />
         <MyFooter message="Thanks for being apart of the world wide web!" />

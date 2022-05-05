@@ -2,21 +2,29 @@ import React, { useState } from 'react';
 import { ButtonOnClick } from './button-on-click';
 
 const Vote = (props: {
-  current_idx: number;
-  current_ballot: Array<number>;
-  set_ballot_fn: React.Dispatch<React.SetStateAction<number[]>>;
+  ballot: Array<number>;
+  set_ballot: React.Dispatch<React.SetStateAction<number[]>>;
+  selected_idx: number;
 }) => {
   const vote_for_current_idx = () => {
-    const new_ballot = [...props.current_ballot];
-    new_ballot[props.current_idx] += 1;
-    props.set_ballot_fn(new_ballot);
+    const new_ballot = [...props.ballot];
+    new_ballot[props.selected_idx] += 1;
+    props.set_ballot(new_ballot);
   };
   return (
     <>
       <ButtonOnClick fn={() => vote_for_current_idx()} text={'vote'} />
-      {props.current_ballot}
+      {props.ballot}
     </>
   );
+};
+
+const TopAnecdote = (props: {
+  ballot: Array<number>;
+  anecdotes: Array<string>;
+}) => {
+  const top_idx = props.ballot.indexOf(Math.max(...props.ballot));
+  return <>{props.anecdotes[top_idx]}</>;
 };
 
 export const Anecdotes = () => {
@@ -34,8 +42,8 @@ export const Anecdotes = () => {
     return Array(list.length).fill(0);
   };
 
-  const [selected_idx, set_selected_idx] = useState(0);
   const [ballot, set_ballot] = useState(generate_ballot(anecdotes));
+  const [selected_idx, set_selected_idx] = useState(0);
 
   const selector = () => {
     set_selected_idx(Math.floor(Math.random() * anecdotes.length));
@@ -44,10 +52,13 @@ export const Anecdotes = () => {
   return (
     <>
       <Vote
-        current_idx={selected_idx}
-        current_ballot={ballot}
-        set_ballot_fn={set_ballot}
+        ballot={ballot}
+        set_ballot={set_ballot}
+        selected_idx={selected_idx}
       />
+      <br />
+      Top: <TopAnecdote ballot={ballot} anecdotes={anecdotes} />
+      <br />
       <ButtonOnClick fn={() => selector()} text={'get anecdote'} />
       {anecdotes[selected_idx]}
     </>

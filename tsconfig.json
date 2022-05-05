@@ -3,7 +3,7 @@
     "jsx": "react",
     "target": "ES5",
     "module": "ES6",
-    "lib": ["DOM", "ES2015"],
+    "lib": ["DOM", "ES2015", "ES2016"],
     "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,

@@ -10,27 +10,16 @@ function fold_array(arr: Array<string>) {
 
 function fold_array_(arr: Array<string>) {
   const folded = [];
-  const arrCopy = arr.slice();
+  const arr_copy = arr.slice();
   const dimension_length = Math.sqrt(arr.length);
-  while (arrCopy.length > 0) {
-    if (arrCopy.length >= dimension_length) {
-      const sub_array = arrCopy.splice(0, dimension_length);
+  while (arr_copy.length > 0) {
+    if (arr_copy.length >= dimension_length) {
+      const sub_array = arr_copy.splice(0, dimension_length);
       folded.push(sub_array);
     }
   }
   return folded;
 }
-
-// OOPS???
-// function calc_transpose(arr2d: Array<Array<string>>) {
-//   const new_arr2d = arr2d.slice();
-//   for (let i = 0; i < arr2d.length; i++) {
-//     for (let j = 0; j < i; j++) {
-//       [new_arr2d[i][j], new_arr2d[j][i]] = [new_arr2d[j][i], new_arr2d[i][j]];
-//     }
-//   }
-//   return new_arr2d;
-// }
 
 function calc_diagonals(arr2d: Array<Array<string>>) {
   const diag_left_right = [];
@@ -42,7 +31,7 @@ function calc_diagonals(arr2d: Array<Array<string>>) {
   return Array<Array<string>>(diag_left_right, diag_right_left);
 }
 
-function row_winner(row: Array<string>) {
+function row_winner(row: Array<string | null>) {
   const set_row = new Set(row);
   if (row.includes(null) || set_row.size !== 1) {
     return null; // No winner
