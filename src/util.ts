@@ -9,7 +9,11 @@ function fold_array(arr: Array<string>) {
 }
 
 function calc_transpose(arr2d: string[][]) {
-  return arr2d[0].map((_, i) => arr2d.map((row) => row[i]));
+  return arr2d[0].map((_, col_idx) => {
+    return arr2d.map((row) => {
+      return row[col_idx];
+    });
+  });
 }
 
 function calc_diagonals(arr2d: string[][]) {
@@ -35,26 +39,17 @@ export default function winner(squares: Array<string>) {
   const transposed = calc_transpose(folded); // Columns
   const diagonals = calc_diagonals(folded); // Diagonals
 
-  for (const row of folded) {
-    const result = row_winner(row);
-    if (result) {
-      return result;
+  function check_winner(rows: string[][]) {
+    for (const row of rows) {
+      const result = row_winner(row);
+      if (result) {
+        return result;
+      }
+      return null;
     }
   }
 
-  for (const col of transposed) {
-    const result = row_winner(col);
-    if (result) {
-      return result;
-    }
-  }
-
-  for (const diag of diagonals) {
-    const result = row_winner(diag);
-    if (result) {
-      return result;
-    }
-  }
-
-  return null;
+  if (check_winner(folded)) return check_winner(folded);
+  if (check_winner(transposed)) return check_winner(transposed);
+  if (check_winner(diagonals)) return check_winner(diagonals);
 }
