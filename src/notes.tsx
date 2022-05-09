@@ -1,7 +1,7 @@
 import React from 'react';
-import { INote, INoteList } from './notes-object-list';
+import { INote, TNoteList } from './notes-data';
 
-const MakeNoteLi = (props: { notes: INoteList }) => {
+const MakeNoteLi = (props: { notes: TNoteList }) => {
   return (
     <>
       {props.notes.map((item: INote) => (
@@ -11,7 +11,7 @@ const MakeNoteLi = (props: { notes: INoteList }) => {
   );
 };
 
-export const Notes = (props: { notes: INoteList }) => {
+export const Notes = (props: { notes: TNoteList }) => {
   return (
     <>
       <h1>Notes</h1>

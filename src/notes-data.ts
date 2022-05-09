@@ -5,9 +5,9 @@ export interface INote {
   important: boolean;
 }
 
-export type INoteList = INote[];
+export type TNoteList = INote[];
 
-export const notes_object_list: INoteList = [
+export const notes_data: TNoteList = [
   {
     id: 1,
     content: 'HTML is easy',

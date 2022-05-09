@@ -47,17 +47,25 @@ export const Stats = (props: {
   );
 };
 
+interface IFeelingState {
+  good: number;
+  neutral: number;
+  bad: number;
+}
+
 export const Feedback = () => {
-  const [feeling, set_feeling] = useState({
+  const [feeling, set_feeling] = useState<IFeelingState>({
     good: 0,
     neutral: 0,
     bad: 0
   });
 
-  const i_felt =
-    (felt: string, feeling_state: Record<string, number>) => () => {
-      return set_feeling({ ...feeling_state, [felt]: feeling_state[felt] + 1 });
-    };
+  const i_felt = (felt: string, feeling_state: IFeelingState) => () => {
+    return set_feeling({
+      ...feeling_state,
+      [felt]: feeling_state[felt as keyof IFeelingState] + 1
+    });
+  };
 
   return (
     <>

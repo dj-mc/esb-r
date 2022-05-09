@@ -7,8 +7,10 @@ import { Counter, StatefulCounter } from './counter';
 import { StatefulComponent } from './stateful';
 import { Feedback } from './feedback';
 import { Anecdotes } from './anecdotes';
-import { notes_object_list } from './notes-object-list';
+import { notes_data } from './notes-data';
 import { Notes } from './notes';
+import { course_data } from './course-data';
+import { Course } from './course';
 
 const Greet = ({
   name,
@@ -72,7 +74,8 @@ const App = (props: { title: string; init_count: number }) => {
       <Feedback />
       <br />
       <Game />
-      <Notes notes={notes_object_list} />
+      <Notes notes={notes_data} />
+      <Course course={course_data} />
       <div id="footer-container">
         <LikeButton />
         <MyFooter message="Thanks for being apart of the world wide web!" />
@@ -84,9 +87,9 @@ const App = (props: { title: string; init_count: number }) => {
 };
 
 const refresh = () => {
-  ReactDOMClient.createRoot(document.getElementById('root')).render(
-    <App title="App Title" init_count={0} />
-  );
+  ReactDOMClient.createRoot(
+    document.getElementById('root') as HTMLElement
+  ).render(<App title="App Title" init_count={0} />);
 };
 
 console.log(ReactDOMServer.renderToString(<Greet {...greet_options} />));

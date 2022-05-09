@@ -9,7 +9,9 @@ export const Counter: React.FC<ICounterProps> = (props) => {
   let { n } = props;
   function click_handler(value: number) {
     n = value !== 0 ? n + value : 0;
-    const counter_display = document.getElementById('counter-display');
+    const counter_display = document.getElementById(
+      'counter-display'
+    ) as HTMLElement;
     counter_display.innerText = n.toString();
   }
   return (
