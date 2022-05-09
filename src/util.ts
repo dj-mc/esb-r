@@ -8,20 +8,11 @@ function fold_array(arr: Array<string>) {
   return folded;
 }
 
-function fold_array_(arr: Array<string>) {
-  const folded = [];
-  const arr_copy = arr.slice();
-  const dimension_length = Math.sqrt(arr.length);
-  while (arr_copy.length > 0) {
-    if (arr_copy.length >= dimension_length) {
-      const sub_array = arr_copy.splice(0, dimension_length);
-      folded.push(sub_array);
-    }
-  }
-  return folded;
+function calc_transpose(arr2d: string[][]) {
+  return arr2d[0].map((_, i) => arr2d.map((row) => row[i]));
 }
 
-function calc_diagonals(arr2d: Array<Array<string>>) {
+function calc_diagonals(arr2d: string[][]) {
   const diag_left_right = [];
   const diag_right_left = [];
   for (let i = arr2d.length, j = 0; i > 0; i--, j++) {
@@ -41,7 +32,7 @@ function row_winner(row: Array<string | null>) {
 
 export default function winner(squares: Array<string>) {
   const folded = fold_array(squares); // Rows
-  // const transposed = calc_transpose(folded); // Columns
+  const transposed = calc_transpose(folded); // Columns
   const diagonals = calc_diagonals(folded); // Diagonals
 
   for (const row of folded) {
@@ -51,12 +42,12 @@ export default function winner(squares: Array<string>) {
     }
   }
 
-  // for (const col of transposed) {
-  //   const result = row_winner(col);
-  //   if (result) {
-  //     return result;
-  //   }
-  // }
+  for (const col of transposed) {
+    const result = row_winner(col);
+    if (result) {
+      return result;
+    }
+  }
 
   for (const diag of diagonals) {
     const result = row_winner(diag);
