@@ -6,19 +6,28 @@ const MakePartLi = (props: { parts: TPartList }) => {
     <>
       {props.parts.map((part: IPart) => (
         <li key={part.id}>
-          name: {part.name} exercises: {part.exercises}
+          Name: {part.name} Exercises: {part.exercises}
         </li>
       ))}
     </>
   );
 };
 
+const SumOfExercises = (props: { parts: TPartList }) => {
+  let sum_of_exercises = 0;
+  for (const p of props.parts) {
+    sum_of_exercises += p.exercises;
+  }
+  return <>{sum_of_exercises}</>;
+};
+
 export const Course = (props: { course: ICourse }) => {
   return (
     <>
-      <header>header</header>
-      <div id="content">content</div>
+      <header>Header</header>
+      <div id="content">Content</div>
       <MakePartLi parts={props.course.parts} />
+      Sum: <SumOfExercises parts={props.course.parts} />
     </>
   );
 };
