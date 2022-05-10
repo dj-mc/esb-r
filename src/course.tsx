@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPart, TPartList, ICourse } from './course-data';
+import { IPart, TPartList, ICourse, TCourseList } from './course-data';
 
 const MakePartLi = (props: { parts: TPartList }) => {
   return (
@@ -13,21 +13,30 @@ const MakePartLi = (props: { parts: TPartList }) => {
   );
 };
 
-const SumOfExercises = (props: { parts: TPartList }) => {
-  let sum_of_exercises = 0;
-  for (const p of props.parts) {
-    sum_of_exercises += p.exercises;
-  }
-  return <>{sum_of_exercises}</>;
+const SumExercises = (props: { parts: TPartList }) => {
+  const total = props.parts.reduce((sum, part) => {
+    return sum + part.exercises;
+  }, 0);
+  return <>{total}</>;
 };
 
-export const Course = (props: { course: ICourse }) => {
+const Course = (props: { course: ICourse }) => {
   return (
     <>
       <header>Header</header>
       <div id="content">Content</div>
       <MakePartLi parts={props.course.parts} />
-      Sum: <SumOfExercises parts={props.course.parts} />
+      Sum: <SumExercises parts={props.course.parts} />
+    </>
+  );
+};
+
+export const Courses = (props: { courses: TCourseList }) => {
+  return (
+    <>
+      {props.courses.map((course: ICourse) => (
+        <Course key={course.id} course={course} />
+      ))}
     </>
   );
 };

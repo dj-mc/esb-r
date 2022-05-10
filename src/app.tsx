@@ -10,7 +10,7 @@ import { Anecdotes } from './anecdotes';
 import { notes_data } from './notes-data';
 import { Notes } from './notes';
 import { course_data } from './course-data';
-import { Course } from './course';
+import { Courses } from './course';
 
 const Greet = ({
   name,
@@ -75,7 +75,7 @@ const App = (props: { title: string; init_count: number }) => {
       <br />
       <Game />
       <Notes notes={notes_data} />
-      <Course course={course_data} />
+      <Courses courses={course_data} />
       <div id="footer-container">
         <LikeButton />
         <MyFooter message="Thanks for being apart of the world wide web!" />
