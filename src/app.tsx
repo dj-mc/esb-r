@@ -11,6 +11,8 @@ import { notes_data } from './notes-data';
 import { Notes } from './notes';
 import { course_data } from './course-data';
 import { Courses } from './course';
+import { phonebook_data } from './phonebook-data';
+import { Phonebook } from './phonebook';
 
 const Greet = ({
   name,
@@ -82,6 +84,7 @@ const App = (props: { title: string; init_count: number }) => {
         <Counter n={init_count} />
         <StatefulCounter />
       </div>
+      <Phonebook contacts={phonebook_data} />
     </>
   );
 };
