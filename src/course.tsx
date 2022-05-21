@@ -23,8 +23,11 @@ const SumExercises = (props: { parts: TPartList }) => {
 const Course = (props: { course: ICourse }) => {
   return (
     <>
-      <header>Header</header>
-      <div id="content">Content</div>
+      <br />
+      <br />
+      <header>Course Header</header>
+      <h3>Course Content</h3>
+      <hr />
       <MakePartLi parts={props.course.parts} />
       Sum: <SumExercises parts={props.course.parts} />
     </>

@@ -17,7 +17,7 @@ export const Notes = (props: { notes: TNoteList }) => {
   const [new_note, set_new_note] = useState('');
   const [display_all, set_display_all] = useState(true);
 
-  const add_note = (e: Event) => {
+  const add_note = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Clicked me', e.target);
 
@@ -32,7 +32,7 @@ export const Notes = (props: { notes: TNoteList }) => {
     set_new_note('');
   };
 
-  const input_change = (e: Event & { target: HTMLInputElement }) => {
+  const input_change = (e: React.ChangeEvent<HTMLInputElement>) => {
     set_new_note(e.target.value);
   };
 
@@ -42,7 +42,7 @@ export const Notes = (props: { notes: TNoteList }) => {
 
   return (
     <>
-      <h1>Notes</h1>
+      <h2>Notes</h2>
       <ButtonOnClick
         fn={() => set_display_all(!display_all)}
         text={display_all ? 'important' : 'all'}

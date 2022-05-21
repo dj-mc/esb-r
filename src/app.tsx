@@ -62,7 +62,7 @@ const App = (props: { title: string; init_count: number }) => {
   return (
     <>
       <Greet {...greet_options} />
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias ipsum
         dignissimos ipsa. Rerum debitis quidem veniam natus, perspiciatis
