@@ -27,17 +27,31 @@ const MakeContactLi = (props: { contacts: TContactList }) => {
   );
 };
 
+const DisplaySearch = (props: {
+  search: string;
+  all_contacts: TContactList;
+}) => {
+  const searched_contacts: TContactList = [];
+  props.all_contacts.map((each: IContact) => {
+    const found = each.name.toLowerCase().includes(props.search.toLowerCase());
+    if (found) {
+      searched_contacts.push(each);
+    }
+  });
+  return <MakeContactLi contacts={searched_contacts} />;
+};
+
 export const Phonebook = (props: { contacts: TContactList }) => {
-  const [contacts, set_contacts] = useState(props.contacts);
+  const [all_contacts, set_all_contacts] = useState(props.contacts);
   const [new_name, set_new_name] = useState('');
   const [new_phone_no, set_new_phone_no] = useState('');
-  const [search_this, set_search_this] = useState('');
+  const [search, set_search] = useState('');
 
   const add_contact = (e: React.FormEvent) => {
     e.preventDefault();
 
     let found_duplicate = false;
-    contacts.map((each) => {
+    all_contacts.map((each) => {
       if (each.name === new_name || each.phone_no === new_phone_no) {
         found_duplicate = true;
       }
@@ -49,7 +63,7 @@ export const Phonebook = (props: { contacts: TContactList }) => {
         phone_no: new_phone_no
       };
 
-      set_contacts(contacts.concat(contact_obj));
+      set_all_contacts(all_contacts.concat(contact_obj));
       set_new_name('');
       set_new_phone_no('');
     } else {
@@ -67,26 +81,26 @@ export const Phonebook = (props: { contacts: TContactList }) => {
     set_new_phone_no(e.target.value);
   };
 
-  const input_search_this = (e: TEvent) => {
-    set_search_this(e.target.value);
+  const input_change_search = (e: TEvent) => {
+    set_search(e.target.value);
   };
 
   return (
     <>
       <h2>Phonebook</h2>
-
-      <input value={search_this} onChange={input_search_this} />
-
+      Search:
+      <input value={search} onChange={input_change_search} />
       <form onSubmit={add_contact}>
-        Name: <input value={new_name} onChange={input_change_name} />
+        Name:
+        <input value={new_name} onChange={input_change_name} />
         <br />
-        Number: <input value={new_phone_no} onChange={input_change_phone_no} />
+        Number:
+        <input value={new_phone_no} onChange={input_change_phone_no} />
         <br />
         <button type="submit">Add New Contact</button>
       </form>
-
       <ul>
-        <MakeContactLi contacts={contacts} />
+        <DisplaySearch search={search} all_contacts={all_contacts} />
       </ul>
     </>
   );
