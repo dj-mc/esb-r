@@ -1,6 +1,9 @@
+import axios from 'axios';
+
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import * as ReactDOMServer from 'react-dom/server';
+
 import Game from './tic-tac-toe';
 import LikeButton from './like-button';
 import { Counter, StatefulCounter } from './counter';
@@ -13,6 +16,12 @@ import { course_data } from './course-data';
 import { Courses } from './course';
 import { phonebook_data } from './phonebook-data';
 import { Phonebook } from './phonebook';
+
+const promise = axios.get('http://localhost:3001/notes');
+console.log(promise);
+
+const promise2 = axios.get('http://localhost:3001/foobar');
+console.log(promise2);
 
 const Greet = ({
   name,
