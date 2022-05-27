@@ -45,8 +45,8 @@ export default function winner(squares: Array<string>) {
       if (result) {
         return result;
       }
-      return null;
     }
+    return null;
   }
 
   if (check_winner(folded)) return check_winner(folded);
