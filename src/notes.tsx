@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { ButtonOnClick } from './button-on-click';
-import { INote, TNoteList } from './notes-data';
+
+export interface INote {
+  id: number;
+  content: string;
+  date: string;
+  important: boolean;
+}
+
+export type TNoteList = INote[];
 
 const MakeNoteLi = (props: { notes: TNoteList }) => {
   return (
@@ -12,16 +21,33 @@ const MakeNoteLi = (props: { notes: TNoteList }) => {
   );
 };
 
-export const Notes = (props: { notes: TNoteList }) => {
-  const [notes, set_notes] = useState(props.notes);
+export const Notes = () => {
+  const init_notes: TNoteList = [];
+  const [notes, set_notes] = useState(init_notes);
   const [new_note, set_new_note] = useState('');
   const [display_all, set_display_all] = useState(true);
+
+  const promise_resolved = (response: {
+    data: React.SetStateAction<TNoteList>;
+  }): void => {
+    console.log('Resolving promise...');
+    set_notes(response.data);
+  };
+
+  const get_notes_data = () => {
+    console.log('Effect occurred');
+    axios.get('http://localhost:3001/notes').then(promise_resolved);
+  };
+
+  useEffect(get_notes_data, []);
+
+  console.log(`Rendered ${notes.length} notes`);
 
   const add_note = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Clicked me', e.target);
 
-    const note_obj = {
+    const note_obj: INote = {
       id: notes.length + 1,
       content: new_note,
       date: new Date().toISOString(),

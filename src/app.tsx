@@ -10,18 +10,17 @@ import { Counter, StatefulCounter } from './counter';
 import { StatefulComponent } from './stateful';
 import { Feedback } from './feedback';
 import { Anecdotes } from './anecdotes';
-import { notes_data } from './notes-data';
 import { Notes } from './notes';
 import { course_data } from './course-data';
 import { Courses } from './course';
 import { phonebook_data } from './phonebook-data';
 import { Phonebook } from './phonebook';
 
-const promise = axios.get('http://localhost:3001/notes');
-console.log(promise);
+const promise_for_notes = axios.get('http://localhost:3001/notes');
 
-const promise2 = axios.get('http://localhost:3001/foobar');
-console.log(promise2);
+promise_for_notes.then((response) => {
+  console.log(response);
+});
 
 const Greet = ({
   name,
@@ -85,7 +84,7 @@ const App = (props: { title: string; init_count: number }) => {
       <Feedback />
       <br />
       <Game />
-      <Notes notes={notes_data} />
+      <Notes />
       <Courses courses={course_data} />
       <div id="footer-container">
         <LikeButton />
