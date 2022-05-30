@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { IContact, TContactList } from './phonebook-data';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+
+interface IContact {
+  name: string;
+  phone_no: string;
+  id: number;
+}
+
+type TContactList = IContact[];
 
 const MakeContactLi = (props: { contacts: TContactList }) => {
   return (
@@ -16,7 +24,7 @@ const MakeContactLi = (props: { contacts: TContactList }) => {
 
         <tbody>
           {props.contacts.map((contact: IContact) => (
-            <tr key={contact.name}>
+            <tr key={contact.id}>
               <td>{contact.name}</td>
               <td>{contact.phone_no}</td>
             </tr>
@@ -41,11 +49,18 @@ const DisplaySearch = (props: {
   return <MakeContactLi contacts={searched_contacts} />;
 };
 
-export const Phonebook = (props: { contacts: TContactList }) => {
-  const [all_contacts, set_all_contacts] = useState(props.contacts);
+export const Phonebook = () => {
+  const init_contacts: TContactList = [];
+  const [all_contacts, set_all_contacts] = useState(init_contacts);
   const [new_name, set_new_name] = useState('');
   const [new_phone_no, set_new_phone_no] = useState('');
   const [search, set_search] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/phonebook').then((response) => {
+      set_all_contacts(response.data);
+    });
+  }, []);
 
   const add_contact = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +75,8 @@ export const Phonebook = (props: { contacts: TContactList }) => {
     if (!found_duplicate) {
       const contact_obj: IContact = {
         name: new_name,
-        phone_no: new_phone_no
+        phone_no: new_phone_no,
+        id: all_contacts.length + 1
       };
 
       set_all_contacts(all_contacts.concat(contact_obj));

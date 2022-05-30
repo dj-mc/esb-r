@@ -13,8 +13,8 @@ import { Anecdotes } from './anecdotes';
 import { Notes } from './notes';
 import { course_data } from './course-data';
 import { Courses } from './course';
-import { phonebook_data } from './phonebook-data';
 import { Phonebook } from './phonebook';
+import { Countries } from './countries';
 
 const promise_for_notes = axios.get('http://localhost:3001/notes');
 
@@ -92,7 +92,9 @@ const App = (props: { title: string; init_count: number }) => {
         <Counter n={init_count} />
         <StatefulCounter />
       </div>
-      <Phonebook contacts={phonebook_data} />
+      <Phonebook />
+      <br />
+      <Countries />
     </>
   );
 };

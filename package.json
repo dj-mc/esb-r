@@ -24,7 +24,7 @@
     "check": "prettier --check './**/*.{js,ts,jsx,tsx,json,html,css,md}'",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx .",
     "tsc": "tsc",
-    "http": "http-server -c-1 .",
+    "server": "http-server -c-1 .",
     "json": "json-server -p3001 --watch src/db.json"
   }
 }
