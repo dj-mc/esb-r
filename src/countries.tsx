@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 interface ICountry {
+  area: number;
+  capital: string;
   name: {
     common: string;
     official: string;
@@ -33,7 +35,24 @@ const MakeCountryLi = (props: { countries: TCountryList }) => {
   );
 };
 
-const DisplaySearch = (props: { search: string; countries: TCountryList }) => {
+const RenderSearch = (props: { countries: TCountryList }) => {
+  const { countries } = props;
+  if (countries.length === 1) {
+    const found_country: ICountry = countries[0];
+    return (
+      <>
+        <h2>
+          <CommonOfficial country={found_country} />
+        </h2>
+        <p>
+          Area: {found_country.area}, Capital: {found_country.capital}
+        </p>
+      </>
+    );
+  } else return <MakeCountryLi countries={countries} />;
+};
+
+const SearchResults = (props: { search: string; countries: TCountryList }) => {
   const { search, countries } = props;
   const searched_countries: TCountryList = [];
 
@@ -44,12 +63,13 @@ const DisplaySearch = (props: { search: string; countries: TCountryList }) => {
     const found_official = each.name.official
       .toLowerCase()
       .includes(search.toLowerCase());
+
     if (search.length > 0 && (found_common || found_official)) {
       if (searched_countries.length < 10) searched_countries.push(each);
     }
   });
 
-  return <MakeCountryLi countries={searched_countries} />;
+  return <RenderSearch countries={searched_countries} />;
 };
 
 export const Countries: React.FC = () => {
@@ -75,7 +95,7 @@ export const Countries: React.FC = () => {
       Search:
       <input value={search} onChange={input_change_search} />
       <ul>
-        <DisplaySearch search={search} countries={countries} />
+        <SearchResults search={search} countries={countries} />
       </ul>
     </>
   );
