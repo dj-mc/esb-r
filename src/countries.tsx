@@ -10,11 +10,24 @@ interface ICountry {
 
 type TCountryList = ICountry[];
 
+const CommonOfficial = (props: { country: ICountry }) => {
+  const { common, official } = props.country.name;
+  if (common === official) return <>{common}</>;
+  else
+    return (
+      <>
+        {common}, officially: {official}
+      </>
+    );
+};
+
 const MakeCountryLi = (props: { countries: TCountryList }) => {
   return (
     <>
-      {props.countries.map((country: ICountry) => (
-        <li key={country.name.official}>{country.name.common}</li>
+      {props.countries.map((country: ICountry, idx: number) => (
+        <li key={idx}>
+          <CommonOfficial country={country} />
+        </li>
       ))}
     </>
   );
