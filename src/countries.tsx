@@ -8,6 +8,10 @@ interface ICountry {
     common: string;
     official: string;
   };
+  languages: Record<string, string>;
+  flags: {
+    png: string;
+  };
 }
 
 type TCountryList = ICountry[];
@@ -18,7 +22,9 @@ const CommonOfficial = (props: { country: ICountry }) => {
   else
     return (
       <>
-        {common}, officially: {official}
+        {common}
+        <br />
+        Officially: {official}
       </>
     );
 };
@@ -35,6 +41,21 @@ const MakeCountryLi = (props: { countries: TCountryList }) => {
   );
 };
 
+const Languages = (props: { country: ICountry }) => {
+  const language_list: string[] = [];
+  const { languages } = props.country;
+  Object.keys(languages).map((lang: string) => {
+    language_list.push(languages[lang]);
+  });
+  return (
+    <>
+      {language_list.map((lang: string, idx: number) => (
+        <li key={idx}>{lang}</li>
+      ))}
+    </>
+  );
+};
+
 const RenderSearch = (props: { countries: TCountryList }) => {
   const { countries } = props;
   if (countries.length === 1) {
@@ -44,8 +65,19 @@ const RenderSearch = (props: { countries: TCountryList }) => {
         <h2>
           <CommonOfficial country={found_country} />
         </h2>
+        <img
+          src={found_country.flags.png}
+          alt={`Flag of ${found_country.name.common}`}
+        ></img>
         <p>
-          Area: {found_country.area}, Capital: {found_country.capital}
+          Area: {found_country.area.toLocaleString('en-US')} km<sup>2</sup>
+          <br />
+          Capital: {found_country.capital}
+          <br />
+          Languages:
+          <ul>
+            <Languages country={found_country} />
+          </ul>
         </p>
       </>
     );
@@ -56,18 +88,26 @@ const SearchResults = (props: { search: string; countries: TCountryList }) => {
   const { search, countries } = props;
   const searched_countries: TCountryList = [];
 
-  countries.map((each: ICountry) => {
-    const found_common = each.name.common
-      .toLowerCase()
-      .includes(search.toLowerCase());
-    const found_official = each.name.official
-      .toLowerCase()
-      .includes(search.toLowerCase());
+  for (const country of countries) {
+    const common = country.name.common.toLowerCase();
+    const official = country.name.official.toLowerCase();
+    const found_common = common.includes(search.toLowerCase());
+    const found_official = official.includes(search.toLowerCase());
 
     if (search.length > 0 && (found_common || found_official)) {
-      if (searched_countries.length < 10) searched_countries.push(each);
+      // Top 10 possible matches
+      // Please provide more specific search term
+      if (searched_countries.length < 10) searched_countries.push(country);
     }
-  });
+
+    if (search.toLowerCase() === (common || official)) {
+      // Found exact match
+      // Ensure searched_countries returns only exact match
+      while (searched_countries.length > 0) searched_countries.pop();
+      searched_countries.push(country);
+      break;
+    }
+  }
 
   return <RenderSearch countries={searched_countries} />;
 };
