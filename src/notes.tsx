@@ -45,7 +45,6 @@ export const Notes = () => {
 
   const add_note = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Clicked me', e.target);
 
     const note_obj: INote = {
       id: notes.length + 1,
@@ -53,6 +52,10 @@ export const Notes = () => {
       date: new Date().toISOString(),
       important: Math.random() < 0.5
     };
+
+    axios.post('http://localhost:3001/notes', note_obj).then((response) => {
+      console.log(`${response.data}: Posted ${note_obj.content}`);
+    });
 
     set_notes(notes.concat(note_obj));
     set_new_note('');
