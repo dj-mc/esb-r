@@ -11,11 +11,25 @@ export interface INote {
 
 export type TNoteList = INote[];
 
+const toggle_importance = (id: number) => {
+  console.log("Please toggle this id's importance:", id);
+};
+
+const Note = ({ note }: { note: INote }) => {
+  const label = note.important ? 'important' : 'not important';
+  return (
+    <li>
+      {note.content}
+      <button onClick={() => toggle_importance(note.id)}>{label}</button>
+    </li>
+  );
+};
+
 const MakeNoteLi = (props: { notes: TNoteList }) => {
   return (
     <>
-      {props.notes.map((item: INote) => (
-        <li key={item.id}>{item.content}</li>
+      {props.notes.map((note: INote) => (
+        <Note key={note.id} note={note} />
       ))}
     </>
   );
@@ -55,10 +69,9 @@ export const Notes = () => {
 
     axios.post('http://localhost:3001/notes', note_obj).then((response) => {
       console.log(`${response.data}: Posted ${note_obj.content}`);
+      set_notes(notes.concat(note_obj));
+      set_new_note('');
     });
-
-    set_notes(notes.concat(note_obj));
-    set_new_note('');
   };
 
   const input_change = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +87,7 @@ export const Notes = () => {
       <h2>Notes</h2>
       <ButtonOnClick
         fn={() => set_display_all(!display_all)}
-        text={display_all ? 'important' : 'all'}
+        text={display_all ? 'all' : 'important'}
       />
       <ul>
         <MakeNoteLi notes={display_these} />
