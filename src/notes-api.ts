@@ -1,0 +1,27 @@
+import axios from 'axios';
+import { INote } from './notes-types';
+
+const notes_url = 'http://localhost:3001/notes';
+
+const get_all_notes = () => {
+  return axios.get(notes_url);
+};
+
+const create_new_note = (new_note: INote) => {
+  return axios.post(notes_url, new_note);
+};
+
+const update_target_note = (id: number, updated_note: INote) => {
+  return axios.put(`${notes_url}/${id}`, updated_note);
+};
+
+const delete_target_note = (id: number) => {
+  return axios.delete(`${notes_url}/${id}`);
+};
+
+export const note_service = {
+  getAll: get_all_notes,
+  create: create_new_note,
+  update: update_target_note,
+  delete: delete_target_note
+};

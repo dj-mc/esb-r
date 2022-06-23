@@ -1,15 +1,7 @@
-import axios from 'axios';
+import { note_service } from './notes-api';
+import { INote, TNoteList } from './notes-types';
 import React, { useEffect, useState } from 'react';
 import { ButtonOnClick } from './button-on-click';
-
-export interface INote {
-  id: number;
-  content: string;
-  date: string;
-  important: boolean;
-}
-
-export type TNoteList = INote[];
 
 export const Notes = () => {
   const init_notes: TNoteList = [];
@@ -26,7 +18,7 @@ export const Notes = () => {
 
   const get_notes_data = () => {
     console.log('Effect occurred');
-    axios.get('http://localhost:3001/notes').then(promise_resolved);
+    note_service.getAll().then(promise_resolved);
   };
 
   useEffect(get_notes_data, []);
@@ -43,7 +35,7 @@ export const Notes = () => {
       important: false
     };
 
-    axios.post('http://localhost:3001/notes', note_obj).then((response) => {
+    note_service.create(note_obj).then((response) => {
       console.log(`${response.data}: Posted ${note_obj.content}`);
       set_notes_collection(notes_collection.concat(note_obj));
       set_new_note('');
@@ -53,10 +45,9 @@ export const Notes = () => {
   const toggle_importance = (target_id: number) => {
     const target_note =
       notes_collection.find((note) => note.id === target_id) || null;
-    const target_note_url = `http://localhost:3001/notes/${target_id}`;
     if (target_note) {
       const new_note = { ...target_note, important: !target_note.important };
-      axios.put(target_note_url, new_note).then((response) => {
+      note_service.update(target_id, new_note).then((response) => {
         set_notes_collection(
           notes_collection.map((note) =>
             note.id === target_note.id ? response.data : note
