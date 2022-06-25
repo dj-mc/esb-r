@@ -4,19 +4,21 @@ import { INote } from './notes-types';
 const notes_url = 'http://localhost:3001/notes';
 
 const get_all_notes = () => {
-  return axios.get(notes_url);
+  return axios.get(notes_url).then((response) => response.data);
 };
 
 const create_new_note = (new_note: INote) => {
-  return axios.post(notes_url, new_note);
+  return axios.post(notes_url, new_note).then((response) => response.data);
 };
 
 const update_target_note = (id: number, updated_note: INote) => {
-  return axios.put(`${notes_url}/${id}`, updated_note);
+  return axios
+    .put(`${notes_url}/${id}`, updated_note)
+    .then((response) => response.data);
 };
 
 const delete_target_note = (id: number) => {
-  return axios.delete(`${notes_url}/${id}`);
+  return axios.delete(`${notes_url}/${id}`).then((response) => response.data);
 };
 
 export const note_service = {
