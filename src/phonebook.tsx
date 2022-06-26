@@ -3,7 +3,20 @@ import { ButtonOnClick } from './button-on-click';
 import { IContact, TContactList } from './phonebook-types';
 import { phonebook_service } from './phonebook-api';
 
-const MakeContactLi = (props: { contacts: TContactList }) => {
+const DisplaySearch = (props: {
+  search_query: string;
+  all_contacts: TContactList;
+  remove_contact: CallableFunction;
+}) => {
+  const searched_contacts: TContactList = [];
+  props.all_contacts.map((each: IContact) => {
+    const found = each.name
+      .toLowerCase()
+      .includes(props.search_query.toLowerCase());
+    if (found) {
+      searched_contacts.push(each);
+    }
+  });
   return (
     <>
       <table>
@@ -17,7 +30,7 @@ const MakeContactLi = (props: { contacts: TContactList }) => {
         </thead>
 
         <tbody>
-          {props.contacts.map((contact: IContact) => (
+          {searched_contacts.map((contact: IContact) => (
             <tr key={contact.id}>
               <td>{contact.name}</td>
               <td>{contact.phone_number}</td>
@@ -25,7 +38,7 @@ const MakeContactLi = (props: { contacts: TContactList }) => {
               <td>
                 <ButtonOnClick
                   fn={() => {
-                    return 0;
+                    props.remove_contact(contact.id);
                   }}
                   text={'Delete Contact'}
                 />
@@ -36,20 +49,6 @@ const MakeContactLi = (props: { contacts: TContactList }) => {
       </table>
     </>
   );
-};
-
-const DisplaySearch = (props: {
-  search: string;
-  all_contacts: TContactList;
-}) => {
-  const searched_contacts: TContactList = [];
-  props.all_contacts.map((each: IContact) => {
-    const found = each.name.toLowerCase().includes(props.search.toLowerCase());
-    if (found) {
-      searched_contacts.push(each);
-    }
-  });
-  return <MakeContactLi contacts={searched_contacts} />;
 };
 
 export const Phonebook = () => {
@@ -92,18 +91,18 @@ export const Phonebook = () => {
     }
   };
 
-  // const remove_contact = (contact_id: number) => {
-  //   const target_contact =
-  //     all_contacts.find((contact) => contact.id === contact_id) || null;
-  //   if (target_contact) {
-  //     phonebook_service
-  //       .delete(target_contact.id)
-  //       .catch((err) => console.log(err));
-  //     set_all_contacts(
-  //       all_contacts.filter((contact) => contact.id !== target_contact.id)
-  //     );
-  //   }
-  // };
+  const remove_contact = (contact_id: number) => {
+    const target_contact =
+      all_contacts.find((contact) => contact.id === contact_id) || null;
+    if (target_contact) {
+      phonebook_service
+        .delete(target_contact.id)
+        .catch((err) => console.log(err));
+      set_all_contacts(
+        all_contacts.filter((contact) => contact.id !== target_contact.id)
+      );
+    }
+  };
 
   type TEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -134,8 +133,16 @@ export const Phonebook = () => {
         <button type="submit">Add New Contact</button>
       </form>
       <ul>
-        <DisplaySearch search={search_query} all_contacts={all_contacts} />
+        <DisplaySearch
+          search_query={search_query}
+          all_contacts={all_contacts}
+          remove_contact={remove_contact}
+        />
       </ul>
     </>
   );
 };
+
+// TODO:
+// window.confirm when deleting or updating a contact
+// update their old number if their name already exists
