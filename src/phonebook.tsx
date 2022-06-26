@@ -1,13 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
-interface IContact {
-  name: string;
-  phone_number: string;
-  id: number;
-}
-
-type TContactList = IContact[];
+import { ButtonOnClick } from './button-on-click';
+import { IContact, TContactList } from './phonebook-types';
+import { phonebook_service } from './phonebook-api';
 
 const MakeContactLi = (props: { contacts: TContactList }) => {
   return (
@@ -27,6 +21,15 @@ const MakeContactLi = (props: { contacts: TContactList }) => {
             <tr key={contact.id}>
               <td>{contact.name}</td>
               <td>{contact.phone_number}</td>
+
+              <td>
+                <ButtonOnClick
+                  fn={() => {
+                    return 0;
+                  }}
+                  text={'Delete Contact'}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
@@ -57,8 +60,8 @@ export const Phonebook = () => {
   const [search_query, set_search_query] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/phonebook').then((response) => {
-      set_all_contacts(response.data);
+    phonebook_service.getAll().then((init_phonebook) => {
+      set_all_contacts(init_phonebook);
     });
   }, []);
 
@@ -73,19 +76,34 @@ export const Phonebook = () => {
     });
 
     if (!found_duplicate) {
-      const contact_obj: IContact = {
+      const new_contact: IContact = {
         name: new_name,
         phone_number: new_phone_number,
         id: all_contacts.length + 1
       };
 
-      set_all_contacts(all_contacts.concat(contact_obj));
-      set_new_name('');
-      set_new_phone_number('');
+      phonebook_service.create(new_contact).then((newly_created_contact) => {
+        set_all_contacts(all_contacts.concat(newly_created_contact));
+        set_new_name('');
+        set_new_phone_number('');
+      });
     } else {
       alert(`${new_name} already exists.`);
     }
   };
+
+  // const remove_contact = (contact_id: number) => {
+  //   const target_contact =
+  //     all_contacts.find((contact) => contact.id === contact_id) || null;
+  //   if (target_contact) {
+  //     phonebook_service
+  //       .delete(target_contact.id)
+  //       .catch((err) => console.log(err));
+  //     set_all_contacts(
+  //       all_contacts.filter((contact) => contact.id !== target_contact.id)
+  //     );
+  //   }
+  // };
 
   type TEvent = React.ChangeEvent<HTMLInputElement>;
 
