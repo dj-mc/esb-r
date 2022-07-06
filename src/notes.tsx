@@ -2,12 +2,14 @@ import { note_service } from './notes-api';
 import { INote, TNoteList } from './notes-types';
 import React, { useEffect, useState } from 'react';
 import { ButtonOnClick } from './button-on-click';
+import { Notification } from './notification';
 
 export const Notes = () => {
   const init_notes: TNoteList = [];
   const [new_note, set_new_note] = useState('');
   const [notes_collection, set_notes_collection] = useState(init_notes);
   const [display_all, set_display_all] = useState(true);
+  const [notification, set_notification] = useState('Welcome!');
 
   const get_notes_data = () => {
     note_service.getAll().then((init_notes) => {
@@ -77,13 +79,14 @@ export const Notes = () => {
   return (
     <>
       <h2>Notes</h2>
+      <Notification message={notification} />
       <ButtonOnClick
         fn={() => set_display_all(!display_all)}
         text={display_all ? 'all' : 'important'}
       />
       <ul>
         {display_these.map((note: INote) => (
-          <li key={note.id}>
+          <li key={note.id} className={'note-content'}>
             {note.content}
             <ButtonOnClick
               fn={() => toggle_importance(note.id)}

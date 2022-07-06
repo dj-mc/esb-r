@@ -34,3 +34,16 @@ button.square {
 footer {
   margin: 2px;
 }
+
+h1 {
+  color: bisque;
+  background-color: rgba(10, 0, 70, 0.75);
+  font-style: italic;
+}
+
+.note-content {
+  padding: 3px;
+  border-radius: 1px;
+  font-size: 13px;
+  text-align: center;
+}
