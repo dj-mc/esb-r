@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ButtonOnClick } from './button-on-click';
 import { IContact, TContactList } from './phonebook-types';
 import { phonebook_service } from './phonebook-api';
+import { Notification } from './notification';
 
 const DisplaySearch = (props: {
   search_query: string;
@@ -57,6 +58,7 @@ export const Phonebook = () => {
   const [new_name, set_new_name] = useState('');
   const [new_phone_number, set_new_phone_number] = useState('');
   const [search_query, set_search_query] = useState('');
+  const [notification, set_notification] = useState('');
 
   useEffect(() => {
     phonebook_service.getAll().then((init_phonebook) => {
@@ -86,21 +88,31 @@ export const Phonebook = () => {
         set_new_name('');
         set_new_phone_number('');
       });
+
+      set_notification(`Added ${new_contact.name}`);
     } else {
-      alert(`${new_name} already exists.`);
+      set_notification(`${new_name} already exists.`);
     }
   };
 
   const remove_contact = (contact_id: number) => {
     const target_contact =
       all_contacts.find((contact) => contact.id === contact_id) || null;
+
     if (target_contact) {
-      phonebook_service
-        .delete(target_contact.id)
-        .catch((err) => console.log(err));
-      set_all_contacts(
-        all_contacts.filter((contact) => contact.id !== target_contact.id)
-      );
+      if (
+        window.confirm(
+          `Are you sure you want to delete ${target_contact.name}?`
+        )
+      ) {
+        phonebook_service
+          .delete(target_contact.id)
+          .catch((err) => console.log(err));
+        set_all_contacts(
+          all_contacts.filter((contact) => contact.id !== target_contact.id)
+        );
+        set_notification(`Removed ${target_contact.name}`);
+      }
     }
   };
 
@@ -121,6 +133,7 @@ export const Phonebook = () => {
   return (
     <>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
       Search:
       <input value={search_query} onChange={input_change_search} />
       <form onSubmit={add_contact}>
@@ -144,5 +157,7 @@ export const Phonebook = () => {
 };
 
 // TODO:
-// window.confirm when deleting or updating a contact
 // update their old number if their name already exists
+// notify user of successful operation on phonebook
+//    "Updated contact's name to Johnny"
+//    "Updated John Doe's phone number"

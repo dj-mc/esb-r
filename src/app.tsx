@@ -88,7 +88,13 @@ const App = (props: { title: string; init_count: number }) => {
       <Courses courses={course_data} />
       <div id="footer-container">
         <LikeButton />
-        <MyFooter message="Thanks for being apart of the world wide web!" />
+        <div
+          style={{
+            fontSize: '18px' // Inline style
+          }}
+        >
+          <MyFooter message="Thanks for being apart of the world wide web!" />
+        </div>
         <Counter n={init_count} />
         <StatefulCounter />
       </div>
