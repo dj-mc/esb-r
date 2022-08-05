@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import * as ReactDOMServer from 'react-dom/server';
@@ -15,12 +13,6 @@ import { course_data } from './course-data';
 import { Courses } from './course';
 import { Phonebook } from './phonebook';
 import { Countries } from './countries';
-
-const promise_for_notes = axios.get('http://localhost:3001/notes');
-
-promise_for_notes.then((response) => {
-  console.log(response);
-});
 
 const Greet = ({
   name,

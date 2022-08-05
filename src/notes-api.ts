@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { INote } from './notes-types';
 
-const notes_url = 'http://localhost:3001/notes';
+const notes_url = '/notes/api';
 
 const get_all_notes = () => {
   return axios.get(notes_url).then((response) => response.data);

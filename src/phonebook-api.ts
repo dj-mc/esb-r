@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { IContact } from './phonebook-types';
 
-const phonebook_url = 'http://localhost:3001/phonebook';
+const phonebook_url = '/phonebook/api';
 
 const get_all_contacts = () => {
   return axios.get(phonebook_url).then((response) => response.data);
