@@ -10,14 +10,18 @@ const DisplaySearch = (props: {
   remove_contact: CallableFunction;
 }) => {
   const searched_contacts: TContactList = [];
-  props.all_contacts.map((each: IContact) => {
-    const found = each.name
-      .toLowerCase()
-      .includes(props.search_query.toLowerCase());
-    if (found) {
-      searched_contacts.push(each);
+  props.all_contacts.map((contact: IContact) => {
+    const found_name = contact.name
+      ? contact.name.toLowerCase().includes(props.search_query.toLowerCase())
+      : null;
+    const found_number = contact.phone_number
+      ? contact.phone_number.includes(props.search_query)
+      : null;
+    if (found_name || found_number) {
+      searched_contacts.push(contact);
     }
   });
+
   return (
     <>
       <table>
