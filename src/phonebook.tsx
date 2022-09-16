@@ -106,7 +106,11 @@ export const Phonebook = () => {
     if (target_contact) {
       if (
         window.confirm(
-          `Are you sure you want to delete ${target_contact.name}?`
+          `Are you sure you want to delete ${
+            target_contact.name
+              ? target_contact.name
+              : target_contact.phone_number
+          }?`
         )
       ) {
         phonebook_service
