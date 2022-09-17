@@ -75,7 +75,7 @@ export const Phonebook = () => {
 
     let found_duplicate = false;
     all_contacts.map((each) => {
-      if (each.name === new_name || each.phone_number === new_phone_number) {
+      if (each.phone_number === new_phone_number) {
         found_duplicate = true;
       }
     });
@@ -95,7 +95,30 @@ export const Phonebook = () => {
 
       set_notification(`Added ${new_contact.name}`);
     } else {
-      set_notification(`${new_name} already exists.`);
+      const duplicate_contact = all_contacts.find(
+        (contact) => contact.phone_number === new_phone_number
+      );
+      if (duplicate_contact) {
+        set_notification(`${new_phone_number} already exists.`);
+        if (
+          window.confirm(`
+        Update "${duplicate_contact?.name}" to ${new_name}?
+        `)
+        ) {
+          const new_contact = { ...duplicate_contact, name: new_name };
+          phonebook_service
+            .update(duplicate_contact.id, new_contact)
+            .then((updated_contact) => {
+              set_all_contacts(
+                all_contacts.map((contact) =>
+                  contact.id === duplicate_contact.id
+                    ? updated_contact
+                    : contact
+                )
+              );
+            });
+        }
+      }
     }
   };
 
@@ -165,7 +188,6 @@ export const Phonebook = () => {
 };
 
 // TODO:
-// update their old number if their name already exists
-// notify user of successful operation on phonebook
-//    "Updated contact's name to Johnny"
-//    "Updated John Doe's phone number"
+// Duplicate names should be OK.
+// If a duplicate number is found ask the user to confirm
+// updating the associated name.
