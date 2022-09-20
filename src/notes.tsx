@@ -31,11 +31,16 @@ export const Notes = () => {
       important: false
     };
 
-    note_service.create(new_note_obj).then((newly_created_note) => {
-      console.log(`Posted ${newly_created_note.content}`);
-      set_notes_collection(notes_collection.concat(newly_created_note));
-      set_new_note('');
-    });
+    note_service
+      .create(new_note_obj)
+      .then((newly_created_note) => {
+        console.log(`Posted ${newly_created_note.content}`);
+        set_notes_collection(notes_collection.concat(newly_created_note));
+        set_new_note('');
+      })
+      .catch((error) => {
+        set_notification(error.response.data.error);
+      });
   };
 
   const find_note = (target_id: number) => {

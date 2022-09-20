@@ -87,11 +87,16 @@ export const Phonebook = () => {
         id: all_contacts.length + 1
       };
 
-      phonebook_service.create(new_contact).then((newly_created_contact) => {
-        set_all_contacts(all_contacts.concat(newly_created_contact));
-        set_new_name('');
-        set_new_phone_number('');
-      });
+      phonebook_service
+        .create(new_contact)
+        .then((newly_created_contact) => {
+          set_all_contacts(all_contacts.concat(newly_created_contact));
+          set_new_name('');
+          set_new_phone_number('');
+        })
+        .catch((error) => {
+          set_notification(error.response.data.error);
+        });
 
       set_notification(`Added ${new_contact.name}`);
     } else {
