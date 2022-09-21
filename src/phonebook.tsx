@@ -90,15 +90,16 @@ export const Phonebook = () => {
       phonebook_service
         .create(new_contact)
         .then((newly_created_contact) => {
+          set_notification(`Added ${new_contact.name}`);
           set_all_contacts(all_contacts.concat(newly_created_contact));
           set_new_name('');
           set_new_phone_number('');
         })
         .catch((error) => {
+          console.log(error.response.data.error);
+
           set_notification(error.response.data.error);
         });
-
-      set_notification(`Added ${new_contact.name}`);
     } else {
       const duplicate_contact = all_contacts.find(
         (contact) => contact.phone_number === new_phone_number
