@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonOnClick } from './button-on-click';
 import { IContact, TContactList } from './phonebook-types';
 import { phonebook_service } from './phonebook-api';
-import { Notification } from './notification';
+import { ButtonOnClick } from '../utils/button-on-click';
+import { Notification } from '../utils/notification';
 
 const DisplaySearch = (props: {
   search_query: string;

@@ -1,8 +1,8 @@
-import { note_service } from './notes-api';
-import { INote, TNoteList } from './notes-types';
 import React, { useEffect, useState } from 'react';
-import { ButtonOnClick } from './button-on-click';
-import { Notification } from './notification';
+import { INote, TNoteList } from './notes-types';
+import { note_service } from './notes-api';
+import { ButtonOnClick } from '../utils/button-on-click';
+import { Notification } from '../utils/notification';
 
 export const Notes = () => {
   const init_notes: TNoteList = [];

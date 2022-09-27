@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonOnClick } from './button-on-click';
+import { ButtonOnClick } from './utils/button-on-click';
 
 interface ICounterProps {
   n: number;

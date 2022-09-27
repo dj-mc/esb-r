@@ -2,17 +2,19 @@ import React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import * as ReactDOMServer from 'react-dom/server';
 
-import Game from './tic-tac-toe';
-import LikeButton from './like-button';
-import { Counter, StatefulCounter } from './counter';
-import { StatefulComponent } from './stateful';
-import { Feedback } from './feedback';
-import { Anecdotes } from './anecdotes';
-import { Notes } from './notes';
-import { course_data } from './course-data';
+import { Notes } from './notes/notes';
+import { Phonebook } from './phonebook/phonebook';
+import Game from './tic-tac-toe/tic-tac-toe';
+
 import { Courses } from './course';
-import { Phonebook } from './phonebook';
+import { course_data } from './course-data';
 import { Countries } from './countries';
+import LikeButton from './like-button';
+
+import { Anecdotes } from './anecdotes';
+import { StatefulComponent } from './stateful';
+import { Counter, StatefulCounter } from './counter';
+import { Feedback } from './feedback';
 
 const Greet = ({
   name,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonOnClick } from './button-on-click';
+import { ButtonOnClick } from './utils/button-on-click';
 
 export const TableRow = (props: { title: string; statistic: string }) => {
   const { title, statistic } = props;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonOnClick } from './button-on-click';
+import { ButtonOnClick } from './utils/button-on-click';
 
 const History = (props: { click_history: Array<string> }) => {
   if (props.click_history.length === 0) {
