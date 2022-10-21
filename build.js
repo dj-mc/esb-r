@@ -1,7 +1,7 @@
 import esbuild from 'esbuild';
 
 esbuild.buildSync({
-  entryPoints: ['./src/app.jsx'],
+  entryPoints: ['./src/app.tsx'],
   bundle: true,
   minify: true,
   sourcemap: true,
