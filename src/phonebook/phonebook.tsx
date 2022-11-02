@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IContact, TContactList } from './phonebook-types';
 import { phonebook_service } from './phonebook-api';
-import { ButtonOnClick } from '../utils/button-on-click';
-import { Notification } from '../utils/notification';
+import { Notification } from '../components/notification';
 
 const DisplaySearch = (props: {
   search_query: string;
@@ -41,12 +40,13 @@ const DisplaySearch = (props: {
               <td>{contact.phone_number}</td>
 
               <td>
-                <ButtonOnClick
-                  fn={() => {
+                <button
+                  onClick={() => {
                     props.remove_contact(contact.id);
                   }}
-                  text={'Delete Contact'}
-                />
+                >
+                  Delete Contact
+                </button>
               </td>
             </tr>
           ))}
@@ -56,7 +56,7 @@ const DisplaySearch = (props: {
   );
 };
 
-export const Phonebook = () => {
+const Phonebook = () => {
   const init_contacts: TContactList = [];
   const [all_contacts, set_all_contacts] = useState(init_contacts);
   const [new_name, set_new_name] = useState('');
@@ -144,7 +144,7 @@ export const Phonebook = () => {
       ) {
         phonebook_service
           .delete(target_contact.id)
-          .catch((err) => console.log(err));
+          .catch((error) => console.error(error));
         set_all_contacts(
           all_contacts.filter((contact) => contact.id !== target_contact.id)
         );
@@ -197,3 +197,5 @@ export const Phonebook = () => {
 // Duplicate names should be OK.
 // If a duplicate number is found ask the user to confirm
 // updating the associated name.
+
+export { Phonebook };
