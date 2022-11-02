@@ -34,7 +34,7 @@ const Course = (props: { course: ICourse }) => {
   );
 };
 
-export const Courses = (props: { courses: TCourseList }) => {
+const Courses = (props: { courses: TCourseList }) => {
   return (
     <>
       {props.courses.map((course: ICourse) => (
@@ -43,3 +43,5 @@ export const Courses = (props: { courses: TCourseList }) => {
     </>
   );
 };
+
+export { Courses };

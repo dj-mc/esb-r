@@ -1,20 +1,20 @@
-export interface IPart {
+interface IPart {
   id: number;
   name: string;
   exercises: number;
 }
 
-export type TPartList = IPart[];
+type TPartList = IPart[];
 
-export interface ICourse {
+interface ICourse {
   id: number;
   name: string;
   parts: TPartList;
 }
 
-export type TCourseList = ICourse[];
+type TCourseList = ICourse[];
 
-export const course_data: TCourseList = [
+const course_data: TCourseList = [
   {
     id: 1,
     name: 'Half Stack application development',
@@ -58,3 +58,5 @@ export const course_data: TCourseList = [
     ]
   }
 ];
+
+export { IPart, TPartList, ICourse, TCourseList, course_data };

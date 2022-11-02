@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ButtonOnClick } from './utils/button-on-click';
 
 const History = (props: { click_history: Array<string> }) => {
   if (props.click_history.length === 0) {
@@ -8,7 +7,7 @@ const History = (props: { click_history: Array<string> }) => {
   return <>History: {props.click_history.join(' ')}</>;
 };
 
-export const StatefulComponent = () => {
+const StatefulComponent = () => {
   const [left_clicks, set_left_sum] = useState(0);
   const [right_clicks, set_right_sum] = useState(0);
   const [click_history, set_click_history] = useState<Array<string>>([]);
@@ -26,10 +25,12 @@ export const StatefulComponent = () => {
   return (
     <>
       {left_clicks}
-      <ButtonOnClick fn={handle_left_click} text="left" />
-      <ButtonOnClick fn={handle_right_click} text="right" />
+      <button onClick={handle_left_click}>left</button>
+      <button onClick={handle_right_click}>right</button>
       {right_clicks}
       <History click_history={click_history} />
     </>
   );
 };
+
+export { StatefulComponent };

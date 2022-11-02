@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ButtonOnClick } from './utils/button-on-click';
 
 const Vote = (props: {
   ballot: Array<number>;
@@ -13,7 +12,7 @@ const Vote = (props: {
   };
   return (
     <>
-      <ButtonOnClick fn={() => vote_for_current_idx()} text={'vote'} />
+      <button onClick={() => vote_for_current_idx()}>vote</button>
       {props.ballot}
     </>
   );
@@ -27,7 +26,7 @@ const TopAnecdote = (props: {
   return <>{props.anecdotes[top_idx]}</>;
 };
 
-export const Anecdotes = () => {
+const Anecdotes = () => {
   const anecdotes = [
     'If it hurts, do it more often',
     'Adding manpower to a late software project makes it later!',
@@ -59,8 +58,10 @@ export const Anecdotes = () => {
       <br />
       Top: <TopAnecdote ballot={ballot} anecdotes={anecdotes} />
       <br />
-      <ButtonOnClick fn={() => selector()} text={'get anecdote'} />
+      <button onClick={() => selector()}>get anecdote</button>
       {anecdotes[selected_idx]}
     </>
   );
 };
+
+export { Anecdotes };

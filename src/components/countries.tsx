@@ -112,7 +112,7 @@ const SearchResults = (props: { search: string; countries: TCountryList }) => {
   return <RenderSearch countries={searched_countries} />;
 };
 
-export const Countries: React.FC = () => {
+const Countries = () => {
   const init_countries: TCountryList = [];
   const [countries, set_countries] = useState(init_countries);
   const [search, set_search] = useState('');
@@ -140,3 +140,5 @@ export const Countries: React.FC = () => {
     </>
   );
 };
+
+export { Countries };

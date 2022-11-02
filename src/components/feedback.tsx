@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ButtonOnClick } from './utils/button-on-click';
 
-export const TableRow = (props: { title: string; statistic: string }) => {
+const TableRow = (props: { title: string; statistic: string }) => {
   const { title, statistic } = props;
   return (
     <>
@@ -13,11 +12,7 @@ export const TableRow = (props: { title: string; statistic: string }) => {
   );
 };
 
-export const Stats = (props: {
-  good: number;
-  neutral: number;
-  bad: number;
-}) => {
+const Stats = (props: { good: number; neutral: number; bad: number }) => {
   const { good, neutral, bad } = props;
   const total_entries = good + neutral + bad;
   const average = (good + bad * -1) / total_entries;
@@ -53,7 +48,7 @@ interface IFeelingState {
   bad: number;
 }
 
-export const Feedback = () => {
+const Feedback = () => {
   const [feeling, set_feeling] = useState<IFeelingState>({
     good: 0,
     neutral: 0,
@@ -70,9 +65,11 @@ export const Feedback = () => {
   return (
     <>
       <Stats good={feeling.good} neutral={feeling.neutral} bad={feeling.bad} />
-      <ButtonOnClick fn={i_felt('good', feeling)} text="Good" />
-      <ButtonOnClick fn={i_felt('neutral', feeling)} text="Neutral" />
-      <ButtonOnClick fn={i_felt('bad', feeling)} text="Bad" />
+      <button onClick={i_felt('good', feeling)}>Good</button>
+      <button onClick={i_felt('neutral', feeling)}>Neutral</button>
+      <button onClick={i_felt('bad', feeling)}>Bad</button>
     </>
   );
 };
+
+export { Feedback };

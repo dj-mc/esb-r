@@ -4,7 +4,7 @@ interface IState {
   liked: boolean;
 }
 
-export default class LikeButton extends React.Component<unknown, IState> {
+class LikeButton extends React.Component<unknown, IState> {
   constructor(props: unknown) {
     super(props);
     this.state = { liked: false };
@@ -22,3 +22,5 @@ export default class LikeButton extends React.Component<unknown, IState> {
     );
   }
 }
+
+export { LikeButton };
