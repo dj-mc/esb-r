@@ -31,9 +31,14 @@ const App = () => {
 
   useEffect(get_notes_data, []);
 
-  // useEffect(() => {
-  //   const logged_in_user_JSON = window.localStorage.getItem('')
-  // })
+  useEffect(() => {
+    const logged_in_user_JSON = window.localStorage.getItem('logged_in_user');
+    if (logged_in_user_JSON) {
+      const parsed_user = JSON.parse(logged_in_user_JSON);
+      set_user(parsed_user);
+      note_service.set_token(parsed_user.token);
+    }
+  }, []);
 
   const handle_login = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,6 +49,11 @@ const App = () => {
         username,
         password
       });
+
+      window.localStorage.setItem(
+        'logged_in_user',
+        JSON.stringify(logged_in_user)
+      );
 
       note_service.set_token(logged_in_user.token);
 
@@ -57,6 +67,11 @@ const App = () => {
         set_notification('');
       }, 5000);
     }
+  };
+
+  const logout = () => {
+    window.localStorage.removeItem('logged_in_user');
+    set_user(null);
   };
 
   const add_note = (e: React.FormEvent) => {
@@ -155,15 +170,18 @@ const App = () => {
       )}
 
       {user !== null && (
-        <NoteForm
-          new_note={new_note}
-          add_note={add_note}
-          note_input_change={note_input_change}
-        />
+        <>
+          <button onClick={() => logout()}>Logout</button>
+          <NoteForm
+            new_note={new_note}
+            add_note={add_note}
+            note_input_change={note_input_change}
+          />
+        </>
       )}
 
       <button onClick={() => set_display_all(!display_all)}>
-        {display_all ? 'all' : 'important'}
+        {display_all ? 'All notes' : 'Important notes'}
       </button>
 
       <ul className="note-list">
