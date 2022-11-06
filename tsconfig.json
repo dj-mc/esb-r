@@ -17,7 +17,7 @@
     "sourceMap": true,
     "strict": true
   },
-  "include": ["src/app.tsx"],
+  "include": ["src/index.tsx"],
   "exclude": ["node_modules", "**/*.spec.ts"],
   "$schema": "https://json.schemastore.org/tsconfig"
 }

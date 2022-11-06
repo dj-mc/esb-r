@@ -96,7 +96,7 @@ const Phonebook = () => {
           set_new_phone_number('');
         })
         .catch((error) => {
-          console.log(error.response.data.error);
+          console.error(error.response.data.error);
 
           set_notification(error.response.data.error);
         });
