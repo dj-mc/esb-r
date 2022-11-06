@@ -1,17 +1,17 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import { IUser } from './auth/user-types';
-import { LoginForm } from './auth/login-form';
-import { login_response } from './services/login-service';
+import { IUser } from '../auth/user-types';
+import { LoginForm } from '../auth/login-form';
+import { login_response } from '../services/login-service';
 
-import { Notification } from './components/notification';
+import { Notification } from '../components/notification';
 
-import { Note } from './notes/note';
-import { INote, TNoteList } from './notes/notes-types';
-import { NoteForm } from './notes/note-form';
-import { note_service } from './services/notes-service';
+import { Note } from '../notes/note';
+import { INote, TNoteList } from '../notes/notes-types';
+import { NoteForm } from '../notes/note-form';
+import { note_service } from '../services/notes-service';
 
-const App = () => {
+const NoteList = () => {
   const [user, set_user] = useState<IUser | null>(null);
   const [username, set_username] = useState('');
   const [password, set_password] = useState('');
@@ -205,4 +205,4 @@ const App = () => {
   );
 };
 
-export { App };
+export { NoteList };
