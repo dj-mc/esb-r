@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { INote } from '../notes/notes-types';
+import { INote } from '../note-list/notes-types';
 
 const notes_url = '/notes/api';
 
