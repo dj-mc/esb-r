@@ -7,7 +7,7 @@ import { login_response } from '../services/login-service';
 import { Notification } from '../components/notification';
 
 import { Note } from '../note-list/note';
-import { INote, TNoteList } from '../note-list/notes-types';
+import { INote, TNoteList } from '../note-list/note-types';
 import { NoteForm } from '../note-list/note-form';
 import { note_service } from '../services/notes-service';
 

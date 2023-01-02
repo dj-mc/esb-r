@@ -1,5 +1,5 @@
 import React from 'react';
-import { INote } from './notes-types';
+import { INote } from './note-types';
 
 const Note = ({
   note,
