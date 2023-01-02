@@ -1,4 +1,10 @@
 {
+  "name": "esb-r",
+  "author": "dj-mc",
+  "version": "1.0.0",
+  "license": "ISC",
+  "description": "(ESBuild-React): Frontend of FullStackOpen's course",
+  "main": "index.html",
   "type": "module",
   "dependencies": {
     "axios": "^0.27.2",
@@ -22,7 +28,7 @@
     "tsc": "tsc",
     "server": "npx http-server -c-1 .",
     "dist": "cp -r dist static index.html ../fso/",
-    "pretty": "npx prettier --write .",
+    "pretty": "prettier --write .",
     "check": "prettier --check './**/*.{js,ts,jsx,tsx,json,html,css,md}'",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx ."
   }
