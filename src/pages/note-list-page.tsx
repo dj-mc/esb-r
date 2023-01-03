@@ -2,14 +2,14 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import { IUser } from '../auth/user-types';
 import { LoginForm } from '../auth/login-form';
-import { login_response } from '../services/login-service';
+import { login_service } from '../services/login-service';
 
 import { Notification } from '../components/notification';
 
 import { Note } from '../note-list/note';
 import { INote, TNoteList } from '../note-list/note-types';
 import { NoteForm } from '../note-list/note-form';
-import { note_service } from '../services/notes-service';
+import { note_service } from '../services/note-service';
 
 const NoteList = () => {
   const [user, set_user] = useState<IUser | null>(null);
@@ -36,16 +36,18 @@ const NoteList = () => {
     if (logged_in_user_JSON) {
       const parsed_user = JSON.parse(logged_in_user_JSON);
       set_user(parsed_user);
-      note_service.set_token(parsed_user.token);
+      login_service.set_token(parsed_user.token);
     }
   }, []);
 
   const handle_login = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(`Logging in as ${username}`);
+    console.log(username);
+    console.log(password);
 
     try {
-      const logged_in_user = await login_response({
+      const logged_in_user = await login_service.login_response({
         username,
         password
       });
@@ -55,7 +57,7 @@ const NoteList = () => {
         JSON.stringify(logged_in_user)
       );
 
-      note_service.set_token(logged_in_user.token);
+      login_service.set_token(logged_in_user.token);
 
       set_user(logged_in_user);
       set_username('');
