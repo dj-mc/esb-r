@@ -1,27 +1,19 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-
-import { IUser } from '../auth/user-types';
-import { LoginForm } from '../auth/login-form';
-import { login_service } from '../services/login-service';
-
-import { Notification } from '../components/notification';
+import React, { useEffect, useState } from 'react';
 
 import { Note } from '../note-list/note';
 import { INote, TNoteList } from '../note-list/note-types';
 import { NoteForm } from '../note-list/note-form';
 import { note_service } from '../services/note-service';
 
+import { Notification } from '../components/notification';
+
 const NoteList = () => {
-  const [user, set_user] = useState<IUser | null>(null);
-  const [username, set_username] = useState('');
-  const [password, set_password] = useState('');
-
-  const [notification, set_notification] = useState('');
-
   const init_notes: TNoteList = [];
   const [notes_collection, set_notes_collection] = useState(init_notes);
   const [new_note, set_new_note] = useState('');
   const [display_all, set_display_all] = useState(true);
+
+  const [notification, set_notification] = useState('');
 
   const get_notes_data = () => {
     note_service.get_all().then((init_notes) => {
@@ -30,51 +22,6 @@ const NoteList = () => {
   };
 
   useEffect(get_notes_data, []);
-
-  useEffect(() => {
-    const logged_in_user_JSON = window.localStorage.getItem('logged_in_user');
-    if (logged_in_user_JSON) {
-      const parsed_user = JSON.parse(logged_in_user_JSON);
-      set_user(parsed_user);
-      login_service.set_token(parsed_user.token);
-    }
-  }, []);
-
-  const handle_login = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(`Logging in as ${username}`);
-    console.log(username);
-    console.log(password);
-
-    try {
-      const logged_in_user = await login_service.login_response({
-        username,
-        password
-      });
-
-      window.localStorage.setItem(
-        'logged_in_user',
-        JSON.stringify(logged_in_user)
-      );
-
-      login_service.set_token(logged_in_user.token);
-
-      set_user(logged_in_user);
-      set_username('');
-      set_password('');
-    } catch (error) {
-      console.error(error);
-      set_notification('Invalid credentials');
-      setTimeout(() => {
-        set_notification('');
-      }, 5000);
-    }
-  };
-
-  const logout = () => {
-    window.localStorage.removeItem('logged_in_user');
-    set_user(null);
-  };
 
   const add_note = (e: React.FormEvent) => {
     e.preventDefault();
@@ -156,31 +103,11 @@ const NoteList = () => {
   return (
     <>
       <Notification message={notification} />
-
-      {user === null ? (
-        <LoginForm
-          username={username}
-          password={password}
-          handle_login={handle_login}
-          handle_username_input={({ target }) => set_username(target.value)}
-          handle_password_input={({ target }) => set_password(target.value)}
-        />
-      ) : (
-        <>
-          <p>Logged in as {user.name}</p>
-        </>
-      )}
-
-      {user !== null && (
-        <>
-          <button onClick={() => logout()}>Logout</button>
-          <NoteForm
-            new_note={new_note}
-            add_note={add_note}
-            note_input_change={note_input_change}
-          />
-        </>
-      )}
+      <NoteForm
+        new_note={new_note}
+        add_note={add_note}
+        note_input_change={note_input_change}
+      />
 
       <button onClick={() => set_display_all(!display_all)}>
         {display_all ? 'All notes' : 'Important notes'}
@@ -196,13 +123,6 @@ const NoteList = () => {
           />
         ))}
       </ul>
-
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias ipsum
-        dignissimos ipsa. Rerum debitis quidem veniam natus, perspiciatis
-        soluta, ex molestias, commodi dolorem placeat tenetur. Distinctio
-        excepturi necessitatibus iusto facilis?
-      </p>
     </>
   );
 };

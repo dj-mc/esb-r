@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { NoteList } from './pages/note-list-page';
+
+import { Home } from './pages/root-page';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <NoteList />
+    <Home />
   </React.StrictMode>
 );
