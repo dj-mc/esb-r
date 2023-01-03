@@ -1,23 +1,37 @@
 import React, { ChangeEventHandler, FormEvent } from 'react';
 
-interface ILoginFormProps {
+interface IRegisterFormProps {
+  name: string;
   username: string;
   password: string;
-  handle_login: (e: FormEvent<HTMLFormElement>) => void;
+  handle_register: (e: FormEvent<HTMLFormElement>) => void;
+  handle_name_input: ChangeEventHandler<HTMLInputElement>;
   handle_username_input: ChangeEventHandler<HTMLInputElement>;
   handle_password_input: ChangeEventHandler<HTMLInputElement>;
 }
 
-const LoginForm = ({
+const RegisterForm = ({
+  name,
   username,
   password,
-  handle_login,
+  handle_register,
+  handle_name_input,
   handle_username_input,
   handle_password_input
-}: ILoginFormProps) => {
+}: IRegisterFormProps) => {
   return (
     <>
-      <form onSubmit={handle_login} className="login-form">
+      <form onSubmit={handle_register} className="register-form">
+        <div>
+          Name
+          <input
+            type="text"
+            value={name}
+            name="Name"
+            onChange={handle_name_input}
+          />
+        </div>
+
         <div>
           Username
           <input
@@ -37,10 +51,10 @@ const LoginForm = ({
             onChange={handle_password_input}
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </>
   );
 };
 
-export { LoginForm };
+export { RegisterForm };
