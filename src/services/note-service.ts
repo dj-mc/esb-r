@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { INote } from '../note-list/note-types';
-import { login_service } from './login-service';
+import { auth_service } from './auth-service';
 
 const notes_url = '/notes/api';
 
@@ -13,7 +13,7 @@ const create_note = async (new_note: INote) => {
   const response = await axios.post(
     notes_url,
     new_note,
-    login_service.auth_config(login_service.token)
+    auth_service.auth_config(auth_service.token)
   );
   return response.data;
 };
