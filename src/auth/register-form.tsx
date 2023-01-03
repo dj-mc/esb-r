@@ -22,35 +22,29 @@ const RegisterForm = ({
   return (
     <>
       <form onSubmit={handle_register} className="register-form">
-        <div>
-          Name
-          <input
-            type="text"
-            value={name}
-            name="Name"
-            onChange={handle_name_input}
-          />
-        </div>
+        <p>Name</p>
+        <input
+          type="text"
+          value={name}
+          name="Name"
+          onChange={handle_name_input}
+        />
 
-        <div>
-          Username
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={handle_username_input}
-          />
-        </div>
+        <p>Username</p>
+        <input
+          type="text"
+          value={username}
+          name="Username"
+          onChange={handle_username_input}
+        />
 
-        <div>
-          Password
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={handle_password_input}
-          />
-        </div>
+        <p>Password</p>
+        <input
+          type="password"
+          value={password}
+          name="Password"
+          onChange={handle_password_input}
+        />
         <button type="submit">Register</button>
       </form>
     </>
